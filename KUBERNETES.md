@@ -47,8 +47,40 @@
  * Statefulset 
    * Stateful apps 
 
+### Minikube and kubectl 
 
- 
+* Minikube - Used for testing K8s locally 
+* kubectl - Command line utility to interact with K8s clusters 
 
+Mac install 
+`brew install hyperkit` (Virtual machine)
+`brew install minikube` 
 
+ Minikube create K8s cluster 
+`minikube start --vm-driver=hyperkit` 
+`minikube status` 
+### Kubectl commands 
+
+```
+kubectl get nodes 
+kubectl get pod
+kubectl get services 
+kubectl create deployment <DEPLOYMENT_NAME> --image=nginx
+kubectl get replicaset 
+kubectl edit deployment <DEPLOYMENT_NAME>
+kubectl logs <POD_NAME>
+kubectl describe pod <POD_NAME>
+kubectl exec -it <POD_NAME> -- bash
+kubectl delete deployments <DEPLOYMENT_NAME>
+kubectl get events
+kubectl apply -f <FILE_NAME>.yaml
+kubectl delete -f <FILE_NAME>.yaml
+```
     
+*Layers of abstraction* 
+`Deployments` manages a Replicaset 
+`Replicaset` manages a Pod
+`Pod` is an abstraction of Container
+`Container` 
+
+

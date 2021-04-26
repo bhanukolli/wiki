@@ -12,8 +12,9 @@
 * Ansible 
 * AWS 
 * Terraform 
-* Kubernetes 
+* [Kubernetes](KUBERNETES.md) 
   * CLI / Commands / Cluster Architecture  
 * Bash 
 * Python 
+* GO Lang
 * Linux  - CLI
