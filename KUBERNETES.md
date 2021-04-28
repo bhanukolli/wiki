@@ -57,15 +57,21 @@ Mac install
 `brew install minikube` 
 
  Minikube create K8s cluster 
-`minikube start --vm-driver=hyperkit` 
-`minikube status` 
+```
+minikube start --vm-driver=hyperkit
+minikube status
+minikube service serviceName # To expose service externally 
+```
 ### Kubectl commands 
 
 ```
 kubectl get nodes 
 kubectl get pod
+kubectl get pod -o wide 
+kubectl get all 
 kubectl get services 
 kubectl create deployment <DEPLOYMENT_NAME> --image=nginx
+kubectl get deployment <DEPLOYMENT_NAME> -o yaml 
 kubectl get replicaset 
 kubectl edit deployment <DEPLOYMENT_NAME>
 kubectl logs <POD_NAME>
@@ -75,6 +81,7 @@ kubectl delete deployments <DEPLOYMENT_NAME>
 kubectl get events
 kubectl apply -f <FILE_NAME>.yaml
 kubectl delete -f <FILE_NAME>.yaml
+kubectl get namespace/ns
 ```
     
 *Layers of abstraction* 
@@ -83,4 +90,53 @@ kubectl delete -f <FILE_NAME>.yaml
 `Pod` is an abstraction of Container
 `Container` 
 
+### K8S Configuration File 
+* Metadata 
+* Specification 
+* Status (Desired State Vs Actual State) - Automatically added by K8s 
+  
+### K8s Namespace 
+Virtual cluster inside of Main cluster   
+* kube-system
+  * System process 
+  * DO-NOT Create / Modify anything in system 
+* kube-public
+  * Publicly accessible data
+  * a configmap, which contains cluster information 
+* kube-node-lease
+  * heartbeats of nodes 
+  * each node has associated lease object in namespace 
+  * determines the availability of a node. 
+* default 
+  * resources we create are located here
 
+```
+kubectl create namespace <NAME>
+kubectl get namespace/ns 
+kubens <NAMESPACE> # External utility to set default namespace (Need to install)
+```
+
+Why ?
+
+Dont's
+1. Everything in one namespace 
+2. Conflicts : Many teams using same application name 
+
+Do's 
+1. Resources grouped in namespace 
+   1. Database / Monitoring / Logging / Teams 
+2. Resource sharing btwn environments (Staging / dev)
+3. Resource sharing : Blue/Green deployments 
+4. Access and Resource Limits on namespaces 
+
+You can't access most of the resources from another namespace. 
+  Ex: configmap / secrets 
+Services can be shared between namespaces 
+Global components `kubectl api-resources --namespaced=false `
+  * Volumes
+  * Node 
+
+Components created are by default in default namespace, 
+### Misc
+Basic encryption of text using base64 
+`echo -n 'text' | base64` 

@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata:
+metadata: # Deployment blue print 
   name: nginx-deployment
   labels:
     app: nginx
@@ -9,7 +9,7 @@ spec: # Specification for deployment
   selector:
     matchLabels:
       app: nginx
-  template:
+  template: # POD Blue Print 
     metadata:
       labels:
         app: nginx
